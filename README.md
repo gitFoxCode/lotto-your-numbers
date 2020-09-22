@@ -1,4 +1,4 @@
-# Lotto Number Searcher
+# Lotto Number Search
 Enter your lotto numbers and see if they ever win
 
 ## Project setup
