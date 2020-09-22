@@ -1,0 +1,28 @@
+<svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.342" y1="0.515" x2="0.864" y2="1.059" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffcb63"/>
+      <stop offset="1" stop-color="#fff568"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_8" data-name="Rectangle 8" width="1920" height="1080" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-2" x1="0.04" y1="0.344" x2="0.641" y2="0.983" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.188"/>
+      <stop offset="1" stop-color="#efff7d" stop-opacity="0.188"/>
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_1" data-name="Rectangle 1" width="1920" height="1080" fill="url(#linear-gradient)"/>
+  <g id="Group_2" data-name="Group 2">
+    <g id="Mask_Group_1" data-name="Mask Group 1" clip-path="url(#clip-path)">
+      <path id="Polygon_1" data-name="Polygon 1" d="M678.5,0,1357,1176H0Z" transform="translate(1254 -14)" fill="rgba(255,255,255,0.19)"/>
+      <path id="Polygon_2" data-name="Polygon 2" d="M678.5,0,1357,1176H0Z" transform="translate(-253.507 1463.551) rotate(-135)" fill="url(#linear-gradient-2)"/>
+      <path id="Polygon_5" data-name="Polygon 5" d="M481.086,0,962.172,833.835H0Z" transform="matrix(-0.259, -0.966, 0.966, -0.259, 81.854, 1829.592)" fill="url(#linear-gradient-2)"/>
+      <path id="Polygon_4" data-name="Polygon 4" d="M678.5,0,1357,1176H0Z" transform="translate(1318.493 2446.551) rotate(-135)" fill="rgba(255,255,255,0.19)"/>
+      <path id="Polygon_3" data-name="Polygon 3" d="M360.5,0,721,625H0Z" transform="matrix(-0.259, -0.966, 0.966, -0.259, -160.465, 486.237)" fill="rgba(255,255,255,0.19)"/>
+      <path id="Polygon_6" data-name="Polygon 6" d="M361.981,0,723.963,626.174H0Z" transform="translate(68.328 1449.434) rotate(-81)" fill="rgba(255,255,255,0.19)"/>
+      <path id="Polygon_7" data-name="Polygon 7" d="M361.981,0,723.963,626.174H0Z" transform="translate(143.634 1261.757) rotate(-59)" fill="rgba(255,255,255,0.19)"/>
+      <path id="Polygon_8" data-name="Polygon 8" d="M361.982,0,723.963,626.173H0Z" transform="translate(167.756 979.084) rotate(-15)" fill="rgba(255,255,255,0.19)"/>
+    </g>
+  </g>
+</svg>
