@@ -52,6 +52,20 @@ if(process.client){
 
 const inputs = document.querySelectorAll('.box__input')
 
+document.addEventListener("paste", (ev)=>{
+  const pasted = (ev.clipboardData || window.clipboardData).getData('text')
+  const numbers = pasted.trim().split(",")
+  if(numbers.length != 0){
+    numbers.forEach((num, i)=>{
+      const number = parseInt(num, 10)
+      if(!Number.isNaN(number) && i <= 5){
+        inputs[i].value = number
+      }
+    })
+  }
+
+})
+
 inputs.forEach((input, index)=>{
   input.addEventListener('keyup', async (ev)=>{
 
@@ -74,30 +88,34 @@ inputs.forEach((input, index)=>{
     userNumbers.value[index] = ev.target.value
     console.log(userNumbers.value)
 
-    let debounce = null
-
-    clearTimeout(debounce)
-
-    debounce = setTimeout(async ()=>{
-
-      /* Validation */
-      if(userNumbers.value.length === 6 && unique(userNumbers.value) && userNumbers.value.every((n)=>n<50) && userNumbers.value[userNumbers.value.length - 1] != ""){
-        error.value = { state: false }
-        console.log("true")
-        //setTimeout(async()=>{ 
-          await searchAPI(userNumbers.value) 
-        //}, 500)
-      }else {
-        if(userNumbers.value.length === 6){
-          error.value = { state: true, message: 'These must be numbers from 1-49 without duplicates!' }
-        }
-      }
-
-    }, 200)
+    await validationAndStart()
 
   })
 
 })
+
+async function validationAndStart(){
+  let debounce = null
+
+  clearTimeout(debounce)
+
+  debounce = setTimeout(async ()=>{
+
+    /* Validation */
+    if(userNumbers.value.length === 6 && unique(userNumbers.value) && userNumbers.value.every((n)=>n<50) && userNumbers.value[userNumbers.value.length - 1] != ""){
+      error.value = { state: false }
+      console.log("true")
+      //setTimeout(async()=>{ 
+        await searchAPI(userNumbers.value) 
+      //}, 500)
+    }else {
+      if(userNumbers.value.length === 6){
+        error.value = { state: true, message: 'These must be numbers from 1-49 without duplicates!' }
+      }
+    }
+
+  }, 200)
+}
 
 async function searchAPI(numbers){
   const rawNumbers = Object.values(numbers).map((n)=>parseInt(n, 10))
