@@ -1,42 +1,5 @@
-# Nuxt 3 Minimal Starter
+# Your lucky lotto numbers 
+On the site you can check if your lucky numbers have ever appeared in any lotto draw since **1957**! <br/>
+The chance of hitting a 6 in the lotto is **1 in 13,983,816**. If that number doesn't convince you then try hitting a 6 in the lotto in **ALL HISTORY**.
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
-
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+![Website preview](https://i.imgur.com/jdwoKva.png)

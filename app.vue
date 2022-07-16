@@ -136,7 +136,7 @@ function matchNumbers(data, numbers){
       winner = true
       loading.value = {state: false}
       isExpand.value = false
-      return winners.value.push({
+      winners.value.push({
         numbers: winningNumbers,
         date: winningDate,
         isNear: false
