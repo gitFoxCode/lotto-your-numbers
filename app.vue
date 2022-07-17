@@ -56,6 +56,7 @@ document.addEventListener("paste", (ev)=>{
   const pasted = (ev.clipboardData || window.clipboardData).getData('text')
   const numbers = pasted.trim().split(",")
   if(numbers.length != 0){
+    userNumbers.value = []
     numbers.forEach((num, i)=>{
       const number = parseInt(num, 10)
       if(!Number.isNaN(number) && i <= 5){
@@ -64,13 +65,13 @@ document.addEventListener("paste", (ev)=>{
     })
   }
 
+  validationAndStart()
 })
 
 inputs.forEach((input, index)=>{
   input.addEventListener('keyup', async (ev)=>{
 
     /* Deleting by backspace */
-    console.log(ev.target.value.length)
     if(ev.keyCode === 8 && ev.target.value.length === 0){
       if(ev.target.previousElementSibling != null){
         ev.target.previousElementSibling.focus()
@@ -86,7 +87,6 @@ inputs.forEach((input, index)=>{
 
     /* In case of change of numbers we need the appropriate index */
     userNumbers.value[index] = ev.target.value
-    console.log(userNumbers.value)
 
     await validationAndStart()
 
@@ -95,22 +95,28 @@ inputs.forEach((input, index)=>{
 })
 
 async function validationAndStart(){
+  winners.value = []
+
   let debounce = null
 
   clearTimeout(debounce)
 
-  debounce = setTimeout(async ()=>{
+  debounce = setTimeout(()=>{
 
     /* Validation */
     if(userNumbers.value.length === 6 && unique(userNumbers.value) && userNumbers.value.every((n)=>n<50) && userNumbers.value[userNumbers.value.length - 1] != ""){
       error.value = { state: false }
-      console.log("true")
-      //setTimeout(async()=>{ 
-        await searchAPI(userNumbers.value) 
-      //}, 500)
+      searchAPI(userNumbers.value) 
     }else {
       if(userNumbers.value.length === 6){
         error.value = { state: true, message: 'These must be numbers from 1-49 without duplicates!' }
+      } else{
+        const inputValues = [...inputs].map((el)=> el.value).filter(n => n)
+
+        if(inputValues.length === 6){
+          userNumbers.value = inputValues
+          searchAPI(userNumbers.value) 
+        }
       }
     }
 
@@ -148,7 +154,7 @@ function matchNumbers(data, numbers){
     let winningNumbers = item.results[0].resultsJson
     let winningDate = new Date(item.drawDate).toLocaleDateString('pl-PL', { day:"numeric", month:"numeric", year:"numeric" })
 
-    console.log(winningNumbers, numbers)
+    //console.log(winningNumbers, numbers)
 
     if(winningNumbers.every((winning)=>numbers.includes(winning))){
       winner = true
@@ -163,7 +169,7 @@ function matchNumbers(data, numbers){
     if(searchSimilar(winningNumbers, numbers)){
       winner = true
       winners.value.push({
-        numbers: winningNumbers, // Numbers in the order given by the user to make them easier to compare 
+        numbers: winningNumbers, // TODO: Numbers in the order given by the user to make them easier to compare 
         date: winningDate,
         isNear: true
       })
@@ -175,6 +181,8 @@ function matchNumbers(data, numbers){
     isExpand.value = false
     winner = false
   }
+  loading.value.state = false
+  isExpand.value = false
   return winner
 }
 
@@ -193,6 +201,8 @@ function searchSimilar(original, numbers){
   let positiveDOWN = 0
   const used = []
 
+  // numbers = numbers.sort((a,b)=> b-a) [Dev only]
+
   numbers.forEach((number)=>{
     original.forEach((org)=>{
       if(number == org && !used.includes(org)){ positive++; used.push(org); return false;}
@@ -201,14 +211,13 @@ function searchSimilar(original, numbers){
     })
   })
 
-  console.log("Similarity:")
-  console.log(positive, positiveUP, positiveDOWN)
+  // console.log(positive, positiveUP, positiveDOWN) [Dev only]
   if(positiveUP > 1 || positiveDOWN > 1){
-    positive = positive + ((positiveUP+positiveDOWN)/2)
+    positive = positive + ((positiveUP + positiveDOWN) / 2)
   }else{
     positive = positive + positiveUP + positiveDOWN
   }
-  // Return boolean
+  // Return boolean, positive points >= 6, and not exact match
   return (positive >= 6 && JSON.stringify(original.sort((a,b)=>a-b)) !== JSON.stringify(numbers.sort((a,b)=>a-b)))
 }
 
@@ -294,6 +303,7 @@ main{
   border-radius: 90px;
   box-shadow: 0 4px 10px 0 rgba(33, 33, 33, 0.15);
   position: relative;
+  margin-bottom: 1rem;
   overflow: hidden;
 }
 .card-skeleton::before {
@@ -344,6 +354,18 @@ main{
   margin-bottom: 1rem;
   text-align: center;
   font-family: "Poppins", sans-serif;
+  &::after {
+    content: '';
+    display: inline-block;
+    animation: dotty steps(1,end) 2s infinite;
+  }
+}
+@keyframes dotty {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
 }
 .expand .logo, .expand .box{
   transform: translateY(-50px);
